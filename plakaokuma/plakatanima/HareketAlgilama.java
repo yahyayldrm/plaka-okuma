@@ -42,7 +42,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class HareketAlgilama extends Thread {
-	//***** Görüntü iþleme alanýnný karartýyor ...
+	
 	static BackgroundSubtractorMOG2 mog;   			
 	static OpenCVFrameConverter.ToIplImage converterIPL = new OpenCVFrameConverter.ToIplImage();
 	static OpenCVFrameConverter.ToMat converterMat = new OpenCVFrameConverter.ToMat();
@@ -98,19 +98,15 @@ public class HareketAlgilama extends Thread {
 			Frame frame =  converterMat.convert(image1);
 			IplImage img = converterIPL.convert(frame);
 			resultImg = img.clone();
-			 // aldýðýmýz fotoðrafýn geniþliðini canalýný ve yükseklik ve enini oluþturuyor.
 			IplImage resize2 = IplImage.create(640, 360, resultImg.depth(), resultImg.nChannels());
-			//yeni oluþturulan görüntüyü yakýnlaþtýrma iþlevini yerine getiriyor.
 			cvResize(resultImg, resize2);
-			// görüntü gri tonlamaya dönüþtürülüyor.
+
 			IplImage gray = IplImage.create(opencv_core.cvGetSize(resultImg), IPL_DEPTH_8U, 1);
 			opencv_imgproc.cvCvtColor(resultImg, gray, CV_BGR2GRAY); // renkli görüntüyü gri tonlamaya çeviriyor.
-			 //Iplýmage üzerinden kanal yükseklik gibi özellikleri yarattýktan sonra  videolabel atýyoruz
 			myImageIcon = new ImageIcon(convertTobuffer.convert(converterIPL.convert(resize2)));  
 
 			AnaPencere.videoGirisLabel
 					.setIcon(myImageIcon);
-			//Araç giriþ çýkýþ esnasýnda 5 saniye bekletiyor bariyer açma süresi
 			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 			int zamanFarki = (int) (currentTime.getTime() - lastProcessTime.getTime());
 			if(zamanFarki > 5000) {
@@ -122,19 +118,15 @@ public class HareketAlgilama extends Thread {
 				int y = resultImg.width() / 2;
 				int with =resultImg.width();
 				int hight =resultImg.height();
-				//Görüntü bindirmesi yapýlýyor görüntünün belirli kýsýmlarý alýnýyor 
 				opencv_core.cvSetImageROI(gray, cvRect(x, y, with, hight));// (x,y,width,height)
 				IplImage roiCikis = IplImage.create(cvGetSize(gray), gray.depth(), gray.nChannels());
 				opencv_core.cvCopy(gray, roiCikis);
 				cvResetImageROI(gray);
-				//ýplýmageden  mat çevirme iþlemi yapýlýyor
 				Mat crrntFrame = converterIPL.convertToMat(converterIPL.convert(roiCikis));
 				foreground = crrntFrame.clone();
 				background = crrntFrame.clone();
 				mog.setNMixtures(3);
-				//arka plandaki karenin son deðere göre deðiþtiði alan 
 				mog.apply(crrntFrame, foreground, 0.09); 	
-               //Bu alan görüntü iþleme ekranýný karartýyor...
 				mog.getBackgroundImage(background);    
 				PlakaBulPanel.plakaAlaniMotionAlani  
 						.setIcon(new ImageIcon(convertTobuffer.convert(converterIPL.convert(foreground))));
@@ -149,10 +141,8 @@ public class HareketAlgilama extends Thread {
 	public static void plakaBul() {
 
 		try {
-			// ýpl görüntüsü img nesnesine atanýyor 
 			BufferedImage img = convertTobuffer.convert(converterIPL.convert(resultImg));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			//img nesnesine atadýðýmýz fotoðrafý png formatýnda baos nesnesine yazdýrýyor.
 			ImageIO.write(img, "png", baos);
 			baos.flush();  //arabelleði temizler
 			byte[] imageInByte = baos.toByteArray();
@@ -160,15 +150,13 @@ public class HareketAlgilama extends Thread {
 			Alpr alpr = new Alpr("eu", "openalpr.conf", "runtime_data");
 			alpr.setTopN(10);
 			alpr.setDefaultRegion("tr");
-			//Plaka okuma iþlemi recognize alanýnda yapýlýyor.
 			AlprResults results = alpr.recognize(imageInByte);
 			for (AlprPlateResult result : results.getPlates()) {
-				//plaka bilgisi alýndý
 				if (result.getBestPlate().getCharacters() != null) {
 					setKarakterEski(result.getBestPlate().getCharacters());
 					int uzunluk = getKarakterEski().length();
 					System.out.println("Uzunluk : " + uzunluk + " Plaka : " + result.getBestPlate().getCharacters());
-					if (!getKarakterYeni().equals(getKarakterEski()) & (uzunluk > 6)) {  // plakanýn uzunluðu altýdan büyükssse giriyor
+					if (!getKarakterYeni().equals(getKarakterEski()) & (uzunluk > 6)) {  
 						
 						String okunanPlaka = result.getBestPlate().getCharacters();
 						boolean hataDurumu = false;
@@ -180,7 +168,6 @@ public class HareketAlgilama extends Thread {
 						DosyaIsmi = DosyaIsmi.replaceAll(" ", "_");
 						
 						if(!hataDurumu) {
-							//if AracGiriyorMu true ise AracGiris deðilse AracCikis
 							if (AracGiriyorMu(okunanPlaka)) {
 								System.out.println("Araç giriþ: " + okunanPlaka);
 								AracGiris( okunanPlaka ,getKarakterEski()+"_"+ DosyaIsmi +".png" );
@@ -194,7 +181,6 @@ public class HareketAlgilama extends Thread {
 						}else {
 							System.out.println("Plaka Uygun Deðil");
 						}
-						// BURADAAAAAAAAAAa
 						try {
 							if (!hataDurumu) {
 								File outputfile = new File(new URI("file:///C:/PlakaOtomasyon/web/imgPlaka/"+getKarakterEski()+"_"+DosyaIsmi+".png"));
@@ -221,7 +207,7 @@ public class HareketAlgilama extends Thread {
 			e1.printStackTrace();
 		}
 
-	}//kaç karakter oldugunu yaz  -- 7  veya 8 içeri girecek 
+	}
 	
 	
 	
