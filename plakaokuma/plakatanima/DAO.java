@@ -15,6 +15,7 @@ public class DAO {
         return db;
     }
 
+
     public void setDb(DBConnection db) {
         this.db = db;
     }
