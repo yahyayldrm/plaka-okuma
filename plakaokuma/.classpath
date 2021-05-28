@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src" />
+	<classpathentry kind="con"
+		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry kind="lib"
+		path="Lib/commons-lang-2.6.jar" />
+	<classpathentry kind="lib"
+		path="Lib/commons-logging-1.1.1.jar" />
+	<classpathentry kind="lib"
+		path="Lib/ffmpeg-platform.jar" />
+	<classpathentry kind="lib"
+		path="Lib/ffmpeg-windows-x86_64.jar" />
+	<classpathentry kind="lib" path="Lib/ffmpeg.jar" />
+	<classpathentry kind="lib" path="Lib/hsqldb.jar" />
+	<classpathentry kind="lib" path="Lib/jackcess-2.1.5.jar" />
+	<classpathentry kind="lib" path="Lib/javacpp.jar" />
+	<classpathentry kind="lib"
+		path="Lib/javacv-platform.jar" />
+	<classpathentry kind="lib" path="Lib/javacv.jar" />
+	<classpathentry kind="lib"
+		path="Lib/jSerialComm-1.3.11.jar" />
+	<classpathentry kind="lib"
+		path="Lib/miglayout-4.0-ideutil.jar" />
+	<classpathentry kind="lib"
+		path="Lib/miglayout-4.0-javadoc.jar" />
+	<classpathentry kind="lib"
+		path="Lib/miglayout-4.0-sources.jar" />
+	<classpathentry kind="lib"
+		path="Lib/miglayout-4.0-swing.jar" />
+	<classpathentry kind="lib"
+		path="Lib/miglayout-4.0-swt.jar" />
+	<classpathentry kind="lib" path="Lib/miglayout-4.0.jar" />
+	<classpathentry kind="lib"
+		path="Lib/opencv-platform.jar" />
+	<classpathentry kind="lib"
+		path="Lib/opencv-windows-x86_64.jar" />
+	<classpathentry kind="lib" path="Lib/opencv.jar" />
+	<classpathentry kind="lib"
+		path="Lib/ucanaccess-3.0.6.jar" />
+	<classpathentry kind="lib"
+		path="Lib/videoinput-platform.jar" />
+	<classpathentry kind="lib"
+		path="Lib/videoinput-windows-x86_64.jar" />
+	<classpathentry kind="lib" path="Lib/videoinput.jar" />
+	<classpathentry kind="lib"
+		path="Lib/jdatepicker-1.3.4.jar" />
+	<classpathentry kind="lib"
+		path="Lib/sqlite-jdbc-3.23.1.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/Yahya YİLDİRİM/Desktop/pr/webcam-capture-0.3.12.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/Yahya YİLDİRİM/Desktop/pr/libs/bridj-0.7.0.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/Yahya YİLDİRİM/Desktop/pr/libs/slf4j-api-1.7.2.jar" />
+	<classpathentry kind="lib"
+		path="C:/Users/Yahya YİLDİRİM/Downloads/postgresql-42.2.8.jar" />
+	<classpathentry kind="output" path="bin" />
+</classpath>
